@@ -3,7 +3,7 @@ var map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/johngaltiswho/cjahzms2p9f5c2ro2u3yp796s',
   center: [77.5946, 12.9716 ],
-  zoom: 7
+  zoom: 9
 });
 
 var popup = new mapboxgl.Popup({
