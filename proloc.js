@@ -6,27 +6,23 @@ var map = new mapboxgl.Map({
   zoom: 7
 });
 
-map.on('click', function(e) {
-  var features = map.queryRenderedFeatures(e.point, {
-    layers: ['aacp-project-information'] // replace this with the name of the layer
-  });
-
-  if (!features.length) {
-    return;
-  }
-
-map.on('mousemove', function (e) {
-    map.featuresAt(e.point, {layer: 'aacp-project-information', radius: 10}, function (err, features) {
-        if (err) throw err;
-        map.getCanvas().style.cursor = features.length ? 'pointer' : '';
-    });
+var popup = new mapboxgl.Popup({
+    offset: [0, -15],
+    closeButton: false
 });
 
-var feature = features[0];
 
-var popup = new mapboxgl.Popup({ offset: [0, -15] })
-  .setLngLat(feature.geometry.coordinates)
-  .setHTML('<h3>' + feature.properties.Title + '</h3><p>' + feature.properties.Description + '</p>')
-  .setLngLat(feature.geometry.coordinates)
-  .addTo(map);
+map.on('mousemove', function(e) {
+  var features = map.queryRenderedFeatures(e.point, { layers: ['aacp-project-information']});
+  map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+
+  if (!features.length) {
+    popup.remove();
+    return;
+  }
+  var feature = features[0];
+  popup.setLngLat(feature.geometry.coordinates)
+    .setHTML('<h3>' + feature.properties.Title + '</h3><p>' + feature.properties.Description + '</p>')
+    .setLngLat(feature.geometry.coordinates)
+    .addTo(map);
 });
