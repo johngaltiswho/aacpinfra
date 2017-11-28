@@ -30,10 +30,6 @@ body {
   bottom: 0;
 }
 
-.pad2 {
-  padding: 20px;
-}
-
 .mapboxgl-popup {
   max-width: 240px;
   font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
